@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -14,22 +16,28 @@ import java.net.UnknownHostException;
 
 public class Client {
 	private static final int NUM_OF_REQUESTS = 3;
-	private static final long TIME_TO_SLEEP_BETWEEN_CLIENT_REQUESTS = 3000;
+	private static final long TIME_TO_SLEEP_BETWEEN_CLIENT_REQUESTS = 2000;
 	private String host;
 	private int port;
+	private String clientID;
 
 	// Client constructor
 	public Client(String host, int port) {
+		clientID = generateClientID();
+		System.out.println("Client created with ID: \"" + clientID + "\"");
 		this.host = host;
 		this.port = port;
 	}
 	
 
-		
-	
+	private String generateClientID() {
+		clientID = LocalTime.now().format(DateTimeFormatter.ofPattern("mmssSSS"));
+		return clientID;
+	}
 
-	private void makeRequest() throws IOException {
-		System.out.println("Trying to open socket to server...");
+
+	public void makeRequest() throws IOException {
+		System.out.println("Lab 2 Trying to open socket to server...");
 
 		Socket socket = null;
 
@@ -59,7 +67,7 @@ public class Client {
 		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 		// Send request to the server
-		String request = "GET";
+		String request = clientID + " : GET";
 		String response;
 
 		for (int i = 0; i < NUM_OF_REQUESTS; i++) {
@@ -86,7 +94,7 @@ public class Client {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Starting socket-based client...");
+		System.out.println("Starting Lab 2 socket-based client...");
 		Client client = new Client("localhost", 8000);
 		try {
 			client.makeRequest();

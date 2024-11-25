@@ -56,6 +56,7 @@ public class ClientHandler implements Runnable {
 			//Send a response to client
 			response = "You made a request to port " + serverPort + " at " + LocalTime.now() + ".";
 			out.println(response + clientID + ".");
+			System.out.println("TO CLIENT" + response);
 		}
 		
 		
