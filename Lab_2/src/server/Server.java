@@ -25,6 +25,7 @@ public class Server implements Runnable {
 	public void run() {
 		try {
 			serveRequest();
+			System.out.println("Server request run");
 		} catch (IOException ioe) {
 			throw new RuntimeException("Error dealing with IO On socket", ioe);
 		}
@@ -55,12 +56,13 @@ public class Server implements Runnable {
 				}
 				throw new RuntimeException("Error: accepting client connection", e);
 			}
-		}
-		System.out.println("Accepted client: \"" + clientSocket.getInetAddress() + "\"");
 
-		ClientHandler clientHandler = new ClientHandler(clientSocket, serverPort, clientNumber);
-		new Thread(clientHandler).start();
-		System.out.println("Starting new client handler thread for client " + clientNumber);
+			System.out.println("Accepted client: \"" + clientSocket.getInetAddress() + "\"");
+
+			ClientHandler clientHandler = new ClientHandler(clientSocket, serverPort, clientNumber);
+			new Thread(clientHandler).start();
+			System.out.println("Starting new client handler thread for client " + clientNumber);
+		}
 
 		// Close server socket when no longer required.
 		try {

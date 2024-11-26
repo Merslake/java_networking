@@ -112,7 +112,7 @@ public class Client {
 
 		System.out.println("Starting socket-based client...");
 		Client client = new Client("localhost", 8000);
-		client.setupGUI();
+		//client.setupGUI();
 		try {
 			client.makeRequest();
 		} catch (IOException ioe) {
