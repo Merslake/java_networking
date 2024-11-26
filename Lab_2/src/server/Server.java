@@ -16,6 +16,7 @@ public class Server implements Runnable {
 	private boolean isStopped = false;
 	private ServerSocket serverSocket;
 
+	// Server constructor
 	public Server(int port) {
 		this.serverPort = port;
 	}
@@ -38,7 +39,6 @@ public class Server implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 
 		Socket clientSocket = null;
 
@@ -60,6 +60,7 @@ public class Server implements Runnable {
 
 		ClientHandler clientHandler = new ClientHandler(clientSocket, serverPort, clientNumber);
 		new Thread(clientHandler).start();
+		System.out.println("Starting new client handler thread for client " + clientNumber);
 
 		// Close server socket when no longer required.
 		try {
@@ -67,7 +68,7 @@ public class Server implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Server socket suucessfully closed by serve request.");
+		System.out.println("Server finished request and closed resources.");
 
 	}
 
@@ -97,9 +98,8 @@ public class Server implements Runnable {
 			System.out.println("ERROR with sleeping server?");
 			ie.printStackTrace();
 		}
-		System.out.println("Stopping server...");
+		System.out.println("Server expiring and will stop.");
 		server.stop();
 	}
-
 
 }

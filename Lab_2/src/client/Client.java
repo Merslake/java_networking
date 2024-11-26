@@ -36,7 +36,7 @@ public class Client {
 	}
 
 
-	public void makeRequest() throws IOException {
+	protected void makeRequest() throws IOException {
 		System.out.println("Lab 2 Trying to open socket to server...");
 
 		Socket socket = null;
@@ -52,7 +52,9 @@ public class Client {
 		System.out.println("Successfully opened connection to server...");
 
 		makeRequests(socket);
-
+		
+		
+		//When finished, socket automatically closed.
 		try {
 			socket.close();
 		} catch (IOException e) {
@@ -77,7 +79,7 @@ public class Client {
 			// Get response from the server
 			System.out.print("Response: \"");
 			response = in.readLine();
-			System.out.println(response + "\"");
+			System.out.println("Client recieved:" + response + "\"");
 
 			try {
 				Thread.sleep(TIME_TO_SLEEP_BETWEEN_CLIENT_REQUESTS);
