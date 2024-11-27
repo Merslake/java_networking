@@ -1,6 +1,6 @@
 package client;
 
-import java.awt.BorderLayout;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,11 +8,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
 
 public class Client {
 	private static final int NUM_OF_REQUESTS = 3;
@@ -26,33 +22,9 @@ public class Client {
 		this.port = port;
 	}
 
-	public void setupGUI() {
 
-		// Instantiate and configure JFrame
-		JFrame window = new JFrame();
-		window.setName("Client Control");
-		window.setVisible(true);
-		window.setSize(300, 300);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Instantiate Two panels
-		JPanel upperPanel = new JPanel();
-		JPanel lowerPanel = new JPanel();
-
-		// Buttons and text elements
-		JButton sendRequestButton = new JButton("Send Request");
-		JTextArea text = new JTextArea();
-
-		// Arrange and validate
-		window.add(upperPanel, BorderLayout.NORTH);
-		window.add(lowerPanel, BorderLayout.SOUTH);
-		upperPanel.add(sendRequestButton);
-		lowerPanel.add(text);
-		window.validate();
-
-	}
-
-	private void makeRequest() throws IOException {
+	protected void makeRequest() throws IOException {
 		System.out.println("Trying to open socket to server...");
 
 		Socket socket = null;
@@ -112,12 +84,11 @@ public class Client {
 
 		System.out.println("Starting socket-based client...");
 		Client client = new Client("localhost", 8000);
-		//client.setupGUI();
 		try {
 			client.makeRequest();
 		} catch (IOException ioe) {
 			throw new RuntimeException("ERROR: dealing with IO on socket", ioe);
 		}
-	}
+			}
 
 }
