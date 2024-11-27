@@ -11,18 +11,25 @@ import java.net.UnknownHostException;
 
 
 public class Client {
-	private static final int NUM_OF_REQUESTS = 3;
+	private static final int NUM_OF_REQUESTS = 1;
 	private static final long TIME_TO_SLEEP_BETWEEN_CLIENT_REQUESTS = 3000;
 	private String host;
 	private int port;
+	private String latestResponse;
 
 	// Client constructor
 	public Client(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
+	
+	public String getLatestResponse() {
+		return latestResponse;
+	}
 
-
+	public void setLatestResponse(String response) {
+		latestResponse = response;
+	}
 
 	protected void makeRequest() throws IOException {
 		System.out.println("Trying to open socket to server...");
@@ -66,6 +73,7 @@ public class Client {
 			System.out.print("Response: \"");
 			response = in.readLine();
 			System.out.println(response + "\"");
+			setLatestResponse(response);
 
 			try {
 				Thread.sleep(TIME_TO_SLEEP_BETWEEN_CLIENT_REQUESTS);
@@ -79,6 +87,8 @@ public class Client {
 		in.close();
 		out.close();
 	}
+
+
 
 	public static void main(String[] args) {
 

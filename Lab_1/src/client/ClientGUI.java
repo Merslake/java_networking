@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class ClientGUI {
-	
+
 	public void setupGUI() {
 
 		// Instantiate and configure JFrame
@@ -27,7 +27,7 @@ public class ClientGUI {
 
 		// Buttons and text elements
 		JButton sendRequestButton = new JButton("Send Request");
-		JTextArea text = new JTextArea();
+		JTextArea text = new JTextArea("Responses will appear here");
 
 		// Arrange and validate
 		window.add(upperPanel, BorderLayout.NORTH);
@@ -35,27 +35,37 @@ public class ClientGUI {
 		upperPanel.add(sendRequestButton);
 		lowerPanel.add(text);
 		window.validate();
-		
+
+		// Setup new client for GUI window
+		Client buttonClient = new Client("localhost", 8000);
+
 		sendRequestButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Client buttonClient = new Client("localhost",8000);
+
 				try {
 					buttonClient.makeRequest();
+
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
+
 			}
-		
-			
 		});
-	
+
+		
+		while (true) {
+			text.append(buttonClient.getLatestResponse());
+
+			
+		}
+		
 	}
 
 	public static void main(String[] args) {
-		ClientGUI clientGUI = new ClientGUI();
-		clientGUI.setupGUI();
+		ClientGUI guiWindow = new ClientGUI();
+		guiWindow.setupGUI();
 
 	}
 
